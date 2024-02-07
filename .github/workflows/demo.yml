@@ -14,7 +14,7 @@ jobs:
       - name: central-login
         uses: stackrox/central-login@v1
         with:
-          endpoint: ${{ env.ENDPOINT }}
+          endpoint: ${{ secrets.CENTRAL_ENDPOINT }}
           skip-tls-verify: true
       # Scan an arbitrary image
       - name: scan nginx image
