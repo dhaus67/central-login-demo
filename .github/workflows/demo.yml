@@ -10,6 +10,7 @@ jobs:
     permissions:
       id-token: write # Required for the GitHub Action.
     steps:
+      - uses: actions/checkout@v4
       # Use Central Login to get credentials and set up environment variables for other steps.
       - name: central-login
         uses: stackrox/central-login@v1
