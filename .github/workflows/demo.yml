@@ -12,7 +12,7 @@ jobs:
     steps:
       # Use Central Login to get credentials and set up environment variables for other steps.
       - name: central-login
-        uses: stackrox/central-loign@v1
+        uses: stackrox/central-login@v1
         with:
           endpoint: ${{ env.ENDPOINT }}
           skip-tls-verify: true
