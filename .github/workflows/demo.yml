@@ -1,0 +1,22 @@
+name: Scan image
+
+on:
+  push:
+
+jobs:
+  demo:
+    name: Demo
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for the GitHub Action.
+    steps:
+      # Use Central Login to get credentials and set up environment variables for other steps.
+      - name: central-login
+        uses: stackrox/central-loign@v1
+        with:
+          endpoint: ${{ env.ENDPOINT }}
+          skip-tls-verify: true
+      # Scan an arbitrary image
+      - name: scan nginx image
+        run: |
+          ./roxctl image check --image docker.io/nginx:1.23 -o table
