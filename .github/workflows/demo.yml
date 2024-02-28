@@ -18,7 +18,11 @@ jobs:
         with:
           endpoint: ${{ secrets.CENTRAL_ENDPOINT }}
           skip-tls-verify: true
+      # Look at the current user
+      - name: whoami
+        run: |
+          ./roxctl central whoami --insecure-skip-tls-verify
       # Scan an arbitrary image
       - name: scan nginx image
         run: |
-          ./roxctl image check --image docker.io/nginx:1.23 -o table
+          ./roxctl image check --image docker.io/nginx:1.23 -o table --insecure-skip-tls-verify
