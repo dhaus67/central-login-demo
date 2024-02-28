@@ -44,9 +44,12 @@ spec:
         set +x
 
         # Read out the ID token from the service account's projected volume.
-        ID_TOKEN=$(cat /service-account-token)
+        ID_TOKEN=$(cat /service-account-token/token)
+        echo "Seding the ID token ${ID_TOKEN} to Central for exchanging"
         # Send the API request to exchange the ID token for a short-lived access token.
-        export ROX_API_TOKEN=$(curl  https://<endpoint>/v1/auth/m2m/exchange -d '{"idToken": "'"${ID_TOKEN}"'"}' | grep -o '"accessToken":"[^"]*' | grep -o '[^"]*$')
+        export ROX_API_TOKEN=$(curl -k https://$ROX_ENDPOINT/v1/auth/m2m/exchange -d '{"idToken": "'"${ID_TOKEN}"'"}' | grep -o '"accessToken":"[^"]*' | grep -o '[^"]*$')
+
+        echo "Got an API token ${ROX_API_TOKEN} from Central"
 
         curl -s -k -L -H "Authorization: Bearer $ROX_API_TOKEN" \
           "https://$ROX_ENDPOINT/api/cli/download/roxctl-linux" \
